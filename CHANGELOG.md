@@ -1,3 +1,7 @@
+## 7.0.28
+
+- Telemetry: Add globals usage to project.json - [#23431](https://github.com/storybookjs/storybook/pull/23431), thanks [@shilman](https://github.com/shilman)!
+
 ## 7.0.27
 
 - Angular: Enable prod mode when Storybook is built - [#23404](https://github.com/storybookjs/storybook/pull/23404), thanks [@valentinpalkovic](https://github.com/valentinpalkovic)!

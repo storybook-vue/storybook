@@ -327,5 +327,6 @@
         "Dependency Upgrades"
       ]
     ]
-  }
+  },
+  "deferredNextVersion": "7.0.28"
 }
