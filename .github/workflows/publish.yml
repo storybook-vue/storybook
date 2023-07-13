@@ -27,6 +27,15 @@ jobs:
       run:
         working-directory: scripts
     steps:
+      - name: Cancel if [skip ci]
+        if: contains(github.event.head_commit.message, '[skip ci]')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # From https://stackoverflow.com/a/75809743
+        run: |
+          gh run cancel ${{ github.run_id }}
+          gh run watch ${{ github.run_id }}
+
       - name: Checkout ${{ github.ref_name }}
         uses: actions/checkout@v3
         with:
@@ -71,7 +80,7 @@ jobs:
           git config --global user.name "storybook-bot"
           git config --global user.email "32066757+storybook-bot@users.noreply.github.com"
           git add .
-          git commit -m "Bump version from $CURRENT_VERSION to $DEFERRED_NEXT_VERSION" || true
+          git commit -m "Bump version from $CURRENT_VERSION to $DEFERRED_NEXT_VERSION [skip ci]" || true
           git push origin ${{ github.ref_name }}
 
       - name: Get current version
@@ -149,7 +158,7 @@ jobs:
           git pull
           git checkout origin/main ./CHANGELOG.md
           git add ./CHANGELOG.md
-          git commit -m "Update CHANGELOG.md for v${{ steps.version.outputs.current-version }}"
+          git commit -m "Update CHANGELOG.md for v${{ steps.version.outputs.current-version }} [skip ci]"
           git push origin next
 
       - name: Sync versions/next.json from `next` to `main`
